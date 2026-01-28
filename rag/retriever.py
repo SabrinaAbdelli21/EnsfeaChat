@@ -1,0 +1,1 @@
+# Récupération du contexte a partir des données 
