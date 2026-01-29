@@ -1,7 +1,7 @@
 # Programme principale 
 import os
 from rag.parsing import get_loader
-
+from rag.chunking import chunk_documents
 
 if __name__ == "__main__":
 
@@ -11,15 +11,30 @@ if __name__ == "__main__":
     try:
         documents = get_loader(file_path)
         print(f"Nombre de documents chargés: {len(documents)}")
-        
-        for i, doc in enumerate(documents):
-            # On récupère le nom du fichier dans les métadonnées
-            source = doc.metadata.get('source', 'Inconnue')
-            
-            print(f"\n--- DOCUMENT {i+1} ({source}) ---")
-            # .strip() enlève les espaces vides inutiles au début/fin
-            print(doc.page_content[:300].strip()) 
-            print("-" * 40)
-            
     except Exception as e:
         print(f"Erreur lors du chargement des documents: {e}")
+
+    # Chunking des documents
+    try:
+        chunked_docs = chunk_documents(documents, chunk_size=500, chunk_overlap=50)
+
+        print(f"Nombre de chunks créés: {len(chunked_docs)}")
+        print("Nombre de chunks par document:") 
+
+        doc_chunk_counts = {}
+        for doc in chunked_docs:  
+            doc_id = doc.metadata.get("source", "unknown")
+            if doc_id not in doc_chunk_counts:
+                doc_chunk_counts[doc_id] = 0
+            doc_chunk_counts[doc_id] += 1
+
+        for doc_id, count in doc_chunk_counts.items():
+            print(f"{doc_id}: {count} chunks")
+
+        print("Premiers chunk:")
+        print(chunked_docs[0].page_content)
+        print("Metadata du premier chunk:")
+        print(chunked_docs[0].metadata)
+        
+    except Exception as e:
+        print(f"Erreur lors du chunking des documents: {e}")

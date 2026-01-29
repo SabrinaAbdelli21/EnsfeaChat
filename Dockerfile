@@ -10,6 +10,10 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Préparation du dossier pour stocker les modèles d'IA
+ENV TRANSFORMERS_CACHE=/app/models_cache
+RUN mkdir -p /app/models_cache
+
 # Définition du PYTHONPATH pour que Python trouve le dossier 'rag'
 COPY . .
 ENV PYTHONPATH=/app
