@@ -21,6 +21,9 @@ unstructured==0.15.13
 langchain-huggingface==0.1.0
 sentence-transformers==3.0.1
 
+# Pour le stockage des embeddings
+langchain-chroma==0.1.4
+chromadb==0.5.3
 
 # Utilitaires
 pathlib==1.0.1

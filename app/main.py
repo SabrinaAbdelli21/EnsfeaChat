@@ -3,6 +3,7 @@ import os
 from rag.parsing import get_loader
 from rag.chunking import chunk_documents
 from rag.embeddings import get_embedding_model, embed_documents
+from rag.vector_store import save_to_chroma
 
 if __name__ == "__main__":
 
@@ -11,32 +12,12 @@ if __name__ == "__main__":
     # Parsing des documents
     try:
         documents = get_loader(file_path)
-        print(f"Nombre de documents chargés: {len(documents)}")
     except Exception as e:
         print(f"Erreur lors du chargement des documents: {e}")
 
     # Chunking des documents
     try:
         chunked_docs = chunk_documents(documents, chunk_size=500, chunk_overlap=50)
-
-        print(f"Nombre de chunks créés: {len(chunked_docs)}")
-        print("Nombre de chunks par document:") 
-
-        doc_chunk_counts = {}
-        for doc in chunked_docs:  
-            doc_id = doc.metadata.get("source", "unknown")
-            if doc_id not in doc_chunk_counts:
-                doc_chunk_counts[doc_id] = 0
-            doc_chunk_counts[doc_id] += 1
-
-        for doc_id, count in doc_chunk_counts.items():
-            print(f"{doc_id}: {count} chunks")
-
-        print("Premiers chunk:")
-        print(chunked_docs[0].page_content)
-        print("Metadata du premier chunk:")
-        print(chunked_docs[0].metadata)
-
     except Exception as e:
         print(f"Erreur lors du chunking des documents: {e}")
 
@@ -44,10 +25,24 @@ if __name__ == "__main__":
     try:    
         embed_model = get_embedding_model()
         vectors = embed_documents(chunked_docs, embed_model)
-        
-        # 3. Vérification
-        print(f"Dimension d'un vecteur : {len(vectors[0])}")
-        print(f"Exemple des 5 premières valeurs du premier vecteur : {vectors[0][:5]}")
-
     except Exception as e:
         print(f"Erreur lors de la génération des embeddings: {e}")
+
+    # Sauvegarde dans le vector store Chroma
+    try:
+  
+        vector_store = save_to_chroma(embed_model, chunked_docs)
+
+        # Test 
+        query = "Qui est Sabrina Abdelli ?"
+        
+        # La réponse la plus proche de la requete
+        results_with_scores = vector_store.similarity_search_with_score(query, k=4)
+
+        for i, (doc, score) in enumerate(results_with_scores):
+            print(f"\n--- Résultat n°{i+1} (Score: {score:.4f}) ---")
+            print(f"Source: {doc.metadata.get('source')}")
+            print(f"Extrait: {doc.page_content[:150]}...")
+
+    except Exception as e:
+        print(f"Erreur lors de la sauvegarde dans le vector store Chroma: {e}")

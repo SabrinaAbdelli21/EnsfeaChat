@@ -22,5 +22,5 @@ def embed_documents(chunks, model):
     texts = [chunk.page_content for chunk in chunks]
     embeddings = model.embed_documents(texts)
     
-    print(f"{len(embeddings)} vecteurs générés avec succès.")
     return embeddings
+    
