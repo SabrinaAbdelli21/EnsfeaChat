@@ -1,0 +1,6 @@
+models_cache/
+__pycache__/
+.venv/
+.git/
+# On ignore les fichiers de données car on les "monte" via le volume
+data/

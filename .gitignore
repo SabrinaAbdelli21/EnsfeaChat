@@ -1,0 +1,14 @@
+# Modèles d'IA (Très lourd)
+models_cache/
+
+# Base de données (Données privées)
+data/db/
+
+# Environnement virtuel et cache Python
+__pycache__/
+.venv/
+.env
+
+# Système
+.DS_Store
+Thumbs.db

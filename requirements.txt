@@ -17,6 +17,11 @@ ftfy==6.2.0
 python-magic==0.4.27
 unstructured==0.15.13
 
+# Pour les embeddings 
+langchain-huggingface==0.1.0
+sentence-transformers==3.0.1
+
+
 # Utilitaires
 pathlib==1.0.1
 typing-extensions==4.12.2

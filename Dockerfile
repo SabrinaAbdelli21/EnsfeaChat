@@ -14,6 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 ENV TRANSFORMERS_CACHE=/app/models_cache
 RUN mkdir -p /app/models_cache
 
+
 # Définition du PYTHONPATH pour que Python trouve le dossier 'rag'
 COPY . .
 ENV PYTHONPATH=/app
