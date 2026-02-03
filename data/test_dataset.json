@@ -1,0 +1,38 @@
+[
+  {
+    "id": "q1",
+    "question": "Quel est le numéro de carte de transport de Sabrina Abdelli ?",
+    "ground_truth_answer": "136477529",
+    "relevant_documents": ["doc1"]
+  },
+  {
+    "id": "q2",
+    "question": "Quel est le montant TTC de l'abonnement mentionné dans l'attestation ?",
+    "ground_truth_answer": "15,50 €",
+    "relevant_documents": ["doc1"]
+  },
+  {
+    "id": "q3",
+    "question": "Depuis combien d'années Florence Test enseigne-t-elle le français langue étrangère ?",
+    "ground_truth_answer": "Environ 40 ans",
+    "relevant_documents": ["doc2"]
+  },
+  {
+    "id": "q4",
+    "question": "Dans quel pays Florence Test a-t-elle travaillé pendant plusieurs années ?",
+    "ground_truth_answer": "En Chine",
+    "relevant_documents": ["doc2"]
+  },
+  {
+    "id": "q5",
+    "question": "Quel est l'objectif principal de la fiche Page service EnsfeaNET ?",
+    "ground_truth_answer": "Préparer l'alimentation de la page service et organiser les informations du service.",
+    "relevant_documents": ["doc3"]
+  },
+  {
+    "id": "q6",
+    "question": "Donnez une bonne pratique recommandée pour rédiger une page EnsfeaNET.",
+    "ground_truth_answer": "Utiliser un vocabulaire simple et des phrases courtes.",
+    "relevant_documents": ["doc3"]
+  }
+]

@@ -17,7 +17,6 @@ def run_rag(question, data_path):
 
     # génération des embeddings
     embed_model = get_embedding_model()
-    vectors = embed_documents(chunked_docs, embed_model)
 
     # Sauvegarde dans le vector store Chroma
     vector_store = save_to_chroma(embed_model, chunked_docs)
