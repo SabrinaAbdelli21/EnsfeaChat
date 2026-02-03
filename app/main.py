@@ -1,11 +1,12 @@
-# Programme principale 
 import os
 from rag.parsing import get_loader
 from rag.chunking import chunk_documents
 from rag.embeddings import get_embedding_model, embed_documents
 from rag.vector_store import save_to_chroma
 from rag.generator import generate_answer
+from rag.retriever import retrieve_context
 
+# Programme principale 
 if __name__ == "__main__":
 
     file_path = "data/corpus/"
@@ -36,23 +37,19 @@ if __name__ == "__main__":
 
         # Test 
         query = "Quel est le numéro de carte de transport ?"
-        
+            
+    
         # La réponse la plus proche de la requete
-        results_with_scores = vector_store.similarity_search_with_score(query, k=3)
-
-        for i, (doc, score) in enumerate(results_with_scores):
-            print(f"\n--- Résultat n°{i+1} (Score: {score:.4f}) ---")
-            print(f"Source: {doc.metadata.get('source')}")
-            print(f"Extrait: {doc.page_content[:150]}...")
+        relevant_chunks = retrieve_context(query, vector_store, top_k=5)
+        print(f"{len(relevant_chunks)} chunks pertinents trouvés")
 
     except Exception as e:
         print(f"Erreur lors de la sauvegarde dans le vector store Chroma: {e}")
     
     # Génération de réponse avec LLM
     try:
-        context_chunks = [doc for doc, score in results_with_scores]
-        answer = generate_answer(query, context_chunks)
-        print("\n--- Réponse Générée par l'IA ---")
+        answer = generate_answer(query, relevant_chunks)
+        print("\n--- Réponse Générée par le modèle ---")
         print(answer)
 
     except Exception as e:
