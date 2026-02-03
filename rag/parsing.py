@@ -15,7 +15,7 @@ def get_loader(file_path: Union[str, Path], **kwargs) -> List[Document]:
     file_path = Path(file_path)
     
     if not file_path.exists():
-        raise FileNotFoundError(f"Le fichier ou répertoire {file_path} n'existe pas")
+       raise ValueError(f"Le chemin spécifié n'existe pas: {file_path}")
     
     # Gestion des répertoires
     if file_path.is_dir():
