@@ -45,7 +45,7 @@ def _load_directory(directory_path: Path, **kwargs) -> List[Document]:
     for p in directory_path.rglob("*"):
         if p.suffix.lower() in [".txt", ".pdf", ".docx"]:
             try:
-                # On utilise ta fonction get_loader qui est déjà bien réglée
+                # On utilise ta fonction get_loader
                 all_docs.extend(get_loader(p))
             except Exception as e:
                 print(f"Erreur sur {p.name}: {e}")

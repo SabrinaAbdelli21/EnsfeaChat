@@ -35,7 +35,7 @@ if __name__ == "__main__":
         vector_store = save_to_chroma(embed_model, chunked_docs)
 
         # Test 
-        query = "Qui est Sabrina Abdelli ?"
+        query = "Quel est le numéro de carte de transport ?"
         
         # La réponse la plus proche de la requete
         results_with_scores = vector_store.similarity_search_with_score(query, k=3)

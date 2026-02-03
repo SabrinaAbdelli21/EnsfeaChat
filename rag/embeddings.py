@@ -3,7 +3,7 @@ import os
 
 # Fonction pour confogurer et charger le modèle d'embeddings
 def get_embedding_model(model_name: str = "sentence-transformers/all-MiniLM-L6-v2"):
-    # On définit les paramètres pour que le modèle tourne en local sur CPU
+    
     model_kwargs = {'device': 'cpu'}
     encode_kwargs = {'normalize_embeddings': True} 
     

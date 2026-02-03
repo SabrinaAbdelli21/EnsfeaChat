@@ -3,6 +3,7 @@ import requests
 import json
 
 def generate_answer(question, context_chunks, model_name="llama3.1:latest"):
+    
     context_text = "\n\n".join([doc.page_content for doc in context_chunks])
     
     prompt = f"""Tu es un assistant. Réponds à la question en utilisant le contexte fourni. 
@@ -20,7 +21,6 @@ def generate_answer(question, context_chunks, model_name="llama3.1:latest"):
     }
 
     try:
-        # On ajoute un timeout pour éviter que Docker ne freeze
         response = requests.post(url, json=payload, timeout=180)
         
         if response.status_code == 404:
